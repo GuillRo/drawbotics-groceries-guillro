@@ -1,0 +1,133 @@
+html {
+  --main-bg-color: rgb(130, 206, 219);
+  --main-txt-color: rgb(92, 97, 97);
+  --light-txt-color: rgb(145, 153, 153);
+}
+
+body {
+  /* text-align: center; */
+  margin: 0;
+}
+
+
+
+.header {
+  background-color: var(--main-bg-color);
+  padding: 25px;
+  display: flex;
+  justify-content: space-between;
+  /*position: relative; */
+}
+
+.header a {
+  text-decoration: none;
+  font-size: 18px;
+  display: inline-block;
+  color: white;
+  font-weight: bold;
+  font-family: 'Montserrat', sans-serif;
+}
+
+
+
+.center {
+  height: 500px;
+  padding: 0 50px;
+  overflow: auto;
+}
+
+
+.center .category {
+  display: flex;
+  color: var(--main-txt-color);
+  align-items: center;
+  justify-content: space-around;
+  padding: 40px;
+  font-size: 22px;
+}
+
+.btn {
+  border: 1px solid var(--light-txt-color);
+  border-radius: 0;
+  font-size: 18px;
+}
+
+.btn-select {
+  width: 250px;
+}
+
+.btn-split {
+  background-color: var(--main-bg-color);
+  color: white;
+}
+
+.ingredients {
+  /* padding: 25px; */
+}
+
+.items {
+  /* width: 65%; */
+  /* padding: 0 100px; */
+  text-align: center;
+  /* position: relative; */
+  /* text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; */
+}
+
+.add-item input {
+  text-align: center;
+  border: 1px dashed var(--main-txt-color);
+  width: 100%;
+
+}
+
+.item {
+  border: 1px solid var(--main-txt-color);
+  margin: 5px 0;
+  color: var(--main-txt-color0);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.ingredients .item p {
+  margin: 0;
+  padding: 5px;
+}
+
+.ingredients .item input {
+  margin: 5px;
+}
+
+
+.btn-completed {
+  background: none;
+  border: none;
+}
+
+.footer {
+  background-color: var(--main-bg-color);
+  padding: 25px 25px 0 25px;
+  /* display: flex; */
+  /* justify-content: space-between; */
+}
+
+.footer ul {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+.footer ul li {
+  /* display: inline; */
+  list-style: none;
+  color: white;
+  text-align: center;
+}
+
+.footer ul li i {
+  font-size: 25px;
+}

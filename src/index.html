@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
+  <link type="text/css" rel="stylesheet" href="./css/style.css">
+  <title>Groceries</title>
+  <script src="https://kit.fontawesome.com/0824285e7f.js"></script>
+</head>
+
+<body>
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-12 col-lg-6">
+        <header class="header">
+          <div class="header-left">
+            <a class="active" href="#">GROCERIES APP</a>
+          </div>
+
+          <div class="header-right">
+            <a class="active" href="#">Login</a>
+          </div>
+
+        </header>
+        <div class="center">
+          <div class="category">
+            <!-- <div class="dropdown">
+              <button class="btn dropdown-toggle-split" type="button" id="dropdownMenuButton"
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Dropdown button
+              </button>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" href="#">Action</a>
+                <a class="dropdown-item" href="#">Another action</a>
+                <a class="dropdown-item" href="#">Something else here</a>
+              </div>
+            </div> -->
+
+            <div class="btn-group">
+              <button class="btn btn-select" type="button">
+                Large split button
+              </button>
+              <button type="btn" class="btn btn-split dropdown-toggle dropdown-toggle-split" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                <span class="sr-only">Toggle Dropdown</span>
+              </button>
+              <div class="dropdown-menu">
+                ...
+              </div>
+            </div>
+
+            <!-- <select id="select-category">
+                <option value="1">Option 1</option>
+                <option value="2">Option 2</option>   
+            </select> -->
+            <i class="fas fa-plus-circle"></i>
+          </div>
+          <div class="ingredients">
+            <div class="items">
+              <form class="add-item">
+                <input type="text" id="new-ingredient" name="new-ingredient" placeholder="Add new item">
+              </form>
+              <label class="item">
+                <p>Bread</p>
+                <input type="checkbox" aria-label="Checkbox for following text input">
+              </label>
+              <label class="item">
+                <p>Chicken</p>
+                <input type="checkbox" aria-label="Checkbox for following text input">
+              </label>
+            </div>
+
+            <div class="btn-group">
+              <button class="btn-completed">Completed</button>
+              <i class="fas fa-chevron-up"></i>
+              <i class="fas fa-chevron-down"></i>
+            </div>
+
+            <div class="items completed">
+              <label class="item">
+                <p>wine</p>
+                <input type="checkbox" aria-label="Checkbox for following text input">
+              </label>
+            </div>
+          </div>
+        </div>
+        
+        <footer class="footer">
+          <ul>
+            <li>
+              <i class="fas fa-list-ul"></i>
+              <p>List</p>
+            </li>
+            <li>
+              <i class="fas fa-chart-pie"></i>
+              <p>Stats</p>
+            </li>
+            <li>
+              <i class="fas fa-utensils"></i>
+              <p>Recipes</p>
+            </li>
+          </ul>
+        </footer>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>

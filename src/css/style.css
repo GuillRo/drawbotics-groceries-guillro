@@ -36,7 +36,6 @@ body {
   overflow: auto;
 }
 
-
 .center .category {
   display: flex;
   color: var(--main-txt-color);
@@ -66,21 +65,13 @@ body {
 }
 
 .items {
-  /* width: 65%; */
-  /* padding: 0 100px; */
   text-align: center;
-  /* position: relative; */
-  /* text-align: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between; */
 }
 
 .add-item input {
   text-align: center;
   border: 1px dashed var(--main-txt-color);
   width: 100%;
-
 }
 
 .item {
@@ -101,17 +92,16 @@ body {
   margin: 5px;
 }
 
-
 .btn-completed {
   background: none;
   border: none;
 }
 
+
+
 .footer {
   background-color: var(--main-bg-color);
   padding: 25px 25px 0 25px;
-  /* display: flex; */
-  /* justify-content: space-between; */
 }
 
 .footer ul {

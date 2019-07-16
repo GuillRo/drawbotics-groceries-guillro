@@ -1,6 +1,5 @@
-// import populateDropDownMenu from './js/populateDropdownMenu'
-// import data from './js/data.mjs'
-// const data = require('./js/data')
+import { populateDropdownMenu } from './js/populateDropdownMenu.js'
+// import { selectors } from './js/selectors.js/index.js'
 
 // Firebase URL
 // This should probably be in a .env file
@@ -126,23 +125,25 @@ populateContainers()
 
 // -------------------------------------------------------------
 
-const populateDropdown = (recipes, selector) => {
-  const htmlAll = `<a class="dropdown-item" href="#">All</a>`
-  document.querySelector(selector).insertAdjacentHTML('beforeend', htmlAll)
-  recipes.forEach(recipe => {
-    const html = `<a class="dropdown-item" href="#">${recipe}</a>`
-    document.querySelector(selector).insertAdjacentHTML('beforeend', html)
-  })
-}
+// const populateDropdown = (recipes, selector) => {
+//   const htmlAll = `<a class="dropdown-item" href="#">All</a>`
+//   document.querySelector(selector).insertAdjacentHTML('beforeend', htmlAll)
+//   recipes.forEach(recipe => {
+//     const html = `<a class="dropdown-item" href="#">${recipe}</a>`
+//     document.querySelector(selector).insertAdjacentHTML('beforeend', html)
+//   })
+// }
 
-fetch(BackEndURL + 'Groceries.json')
-  .then(response => response.json())
-  .then(data => {
-    const recipes = Object.keys(data)
-    // console.log(recipes)
-    populateDropdown(recipes, DOMStrings.dropDownRecipes)
-  })
-// populateDropDownMenu()
+// fetch(BackEndURL + 'Groceries.json')
+//   .then(response => response.json())
+//   .then(data => {
+//     const recipes = Object.keys(data)
+//     // console.log(recipes)
+//     populateDropdown(recipes, DOMStrings.dropDownRecipes)
+//   })
+
+// console.log(data.BackEndURL)
+populateDropdownMenu()
 // -------------------------------------------------------------
 
 const showDropDownSelection = (recipe) => {

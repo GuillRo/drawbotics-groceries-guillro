@@ -1,4 +1,4 @@
-import { BackEndURL } from './data.mjs'
+import { selectors } from './selectors.js'
 
 const populateDropdownMenu = () => {
   const insertDropdownHTML = (recipes, selector) => {
@@ -10,13 +10,13 @@ const populateDropdownMenu = () => {
     })
   }
 
-  fetch(BackEndURL + 'Groceries.json')
+  fetch(selectors.BackEndURL + 'Groceries.json')
     .then(response => response.json())
     .then(data => {
       const recipes = Object.keys(data)
       // console.log(recipes)
-      insertDropdownHTML(recipes, data.DOMStrings.dropDownRecipes)
+      insertDropdownHTML(recipes, selectors.DOMStrings.dropDownRecipes)
     })
 }
 
-export default { populateDropdownMenu }
+export { populateDropdownMenu }

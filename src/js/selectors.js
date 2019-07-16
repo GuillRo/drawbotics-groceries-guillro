@@ -1,5 +1,4 @@
-const data = {
-  BackEndURL: 'https://drawbotics-petpro-guillro.firebaseio.com/',
+const selectors = {
   addRecipeBtn: document.getElementById('add-recipe'),
   completedBtn: document.getElementById('btn-completed'),
   addItem: document.getElementById('new-ingredient'),
@@ -13,7 +12,8 @@ const data = {
     dropDownRecipes: '#dropdown-recipes',
     recipesSelection: '#dropdown-recipes-selection'
   },
+  BackEndURL: 'https://drawbotics-petpro-guillro.firebaseio.com/',
   domain: 'Groceries'
 }
 
-export default { data }
+export { selectors }

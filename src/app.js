@@ -1,3 +1,7 @@
+// import populateDropDownMenu from './js/populateDropdownMenu'
+// import data from './js/data.mjs'
+// const data = require('./js/data')
+
 // Firebase URL
 // This should probably be in a .env file
 const BackEndURL = 'https://drawbotics-petpro-guillro.firebaseio.com/'
@@ -138,7 +142,7 @@ fetch(BackEndURL + 'Groceries.json')
     // console.log(recipes)
     populateDropdown(recipes, DOMStrings.dropDownRecipes)
   })
-
+// populateDropDownMenu()
 // -------------------------------------------------------------
 
 const showDropDownSelection = (recipe) => {

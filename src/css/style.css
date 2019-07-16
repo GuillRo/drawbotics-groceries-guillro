@@ -5,11 +5,31 @@ html {
 }
 
 body {
-  /* text-align: center; */
   margin: 0;
 }
 
+.btn-transparent {
+  background: none;
+  border: none;
+}
 
+.link-nostyle, .link-nostyle:hover {
+  text-decoration: none;
+  color: unset;
+}
+
+.title-big {
+  font-size: 18px;
+  display: inline-block;
+  color: white;
+  font-weight: bold;
+  font-family: 'Montserrat', sans-serif;
+  margin: 0;
+}
+
+.text-linethrough{
+  text-decoration: line-through;
+}
 
 .header {
   background-color: var(--main-bg-color);
@@ -18,17 +38,6 @@ body {
   justify-content: space-between;
   /*position: relative; */
 }
-
-.header a {
-  text-decoration: none;
-  font-size: 18px;
-  display: inline-block;
-  color: white;
-  font-weight: bold;
-  font-family: 'Montserrat', sans-serif;
-}
-
-
 
 .center {
   height: 500px;
@@ -66,6 +75,7 @@ body {
 
 .items {
   text-align: center;
+  margin-bottom: 25px;
 }
 
 .add-item input {
@@ -91,13 +101,6 @@ body {
 .ingredients .item input {
   margin: 5px;
 }
-
-.btn-completed {
-  background: none;
-  border: none;
-}
-
-
 
 .footer {
   background-color: var(--main-bg-color);

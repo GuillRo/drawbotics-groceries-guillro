@@ -6,6 +6,7 @@ const selectors = {
   listBtn: document.getElementById('list-link'),
   statsBtn: document.getElementById('stats-link'),
   recipesBtn: document.getElementById('recipes-link'),
+  checkboxes: '.ing-checkbox',
   DOMStrings: {
     completedItems: '#completed-items',
     pendingItems: '#pending-items',

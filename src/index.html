@@ -41,7 +41,7 @@
               <div id="dropdown-recipes" class="dropdown-menu dropdown-menu-right" style="width: 100%;">
               </div>
             </div>
-<!-- 
+            <!-- 
             <select class="selectpicker">
               <option value="1" selected="selected">Feature 1</option>
               <option value="2">Feature 2</option>
@@ -65,16 +65,17 @@
           </div>
 
           <div class="ingredients">
+            <form class="add-item">
+              <input type="text" id="new-ingredient" value="" name="new-ingredient" placeholder="Add new item">
+            </form>
             <div class="items" id="pending-items">
-              <form class="add-item">
-                <input type="text" id="new-ingredient" value="" name="new-ingredient" placeholder="Add new item">
-              </form>
             </div>
 
             <div class="btn-group">
-              <button id="btn-completed" class="btn-transparent">Completed</button>
-              <i class="fas fa-chevron-up"></i>
-              <i class="fas fa-chevron-down"></i>
+              <button id="btn-completed" class="btn-transparent">Completed
+                <i class="fas fa-chevron-up active"></i>
+                <i class="fas fa-chevron-down"style="display: none;"></i>
+              </button>
             </div>
 
             <div class="items" id="completed-items">

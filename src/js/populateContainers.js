@@ -5,12 +5,12 @@ const insertRecipesHTML = (itemName, selector, completed) => {
   if (completed) {
     html = `<label class="item">
     <p class="text-linethrough">${itemName}</p>
-    <input type="checkbox" aria-label="Checkbox for following text input" checked>
+    <input name="${itemName}" type="checkbox" aria-label="Checkbox for following text input" class="ing-checkbox" checked>
     </label>`
   } else {
     html = `<label class="item">
     <p>${itemName}</p>
-    <input type="checkbox" aria-label="Checkbox for following text input">
+    <input name="${itemName}" type="checkbox" aria-label="Checkbox for following text input" class="ing-checkbox">
     </label>`
   }
   document.querySelector(selector).insertAdjacentHTML('beforeend', html)
@@ -31,6 +31,14 @@ const fetchAllRecipes = () => {
           }
         })
       }
+      // console.log(document.querySelectorAll('.ing-checkbox'))
+      // document.querySelectorAll(selectors.checkboxes).forEach(chkBox => {
+      //   console.log(chkBox)
+      //   chkBox.addEventListener('change', (event) => {
+      //     console.log('click')
+      //   })
+      // })
+      addListenerCheckboxes()
     })
 }
 
@@ -48,6 +56,9 @@ const fetchRecipe = (recipe) => {
           insertRecipesHTML(ingArray[0], selectors.DOMStrings.pendingItems, false)
         }
       })
+      addListenerCheckboxes()
+      // console.log(document.querySelectorAll('.ing-checkbox'))
+      // addListenerCheckboxes()
     })
 }
 
@@ -61,4 +72,37 @@ const populateContainers = (recipe = 'All') => {
   }
 }
 
+const addListenerCheckboxes = () => {
+  document.querySelectorAll(selectors.checkboxes).forEach(chkBox => {
+    // console.log(chkBox)
+    chkBox.addEventListener('change', (event) => {
+      // console.log(event.target)
+      // console.log(chkBox.name)
+      console.log(event.target.checked)
+      const checked = event.target.checked
+      patchIngredient(chkBox.name, checked)
+    })
+  })
+}
+
+const patchIngredient = (ingName, checked) => {
+  // console.log(document.querySelector(selectors.DOMStrings.dropDownRecipes))
+  console.log(document.querySelector(selectors.DOMStrings.recipesSelection).innerText)
+  const listName = document.querySelector(selectors.DOMStrings.recipesSelection).innerText
+  console.log(ingName)
+  const value = checked ? 1 : 0
+  const patchString = `{"${ingName}":${value}}`
+  console.log(patchString)
+  console.log(JSON.stringify({ Mochi: 1, Water: 0 }))
+  fetch(selectors.BackEndURL + `${selectors.domain}/${encodeURI(listName)}.json`, {
+    method: 'PATCH',
+    body: patchString
+  })
+    .then(response => response.json())
+    .then(data => {
+      populateContainers(listName)
+    })
+  // setTimeout(populateContainers(listName), 500)
+  // setTimeout(console.log('bidou'), 5000)
+}
 export { populateContainers }

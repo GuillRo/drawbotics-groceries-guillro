@@ -31,6 +31,10 @@ body {
   text-decoration: line-through;
 }
 
+#btn-completed i {
+  pointer-events: none;
+}
+
 .header {
   background-color: var(--main-bg-color);
   padding: 25px;

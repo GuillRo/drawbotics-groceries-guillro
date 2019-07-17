@@ -1,6 +1,6 @@
 import { DOMStrings, BackEndURL } from './dataStrings.js'
 
-const populateDropdownMenu = () => {
+const addListsToDropdown = () => {
   const insertDropdownHTML = (lists, selector) => {
     const htmlAll = `<a class="dropdown-item" href="#">All</a>`
     document.querySelector(selector).insertAdjacentHTML('beforeend', htmlAll)
@@ -18,4 +18,4 @@ const populateDropdownMenu = () => {
     })
 }
 
-export { populateDropdownMenu }
+export { addListsToDropdown }

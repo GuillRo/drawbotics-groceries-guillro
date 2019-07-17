@@ -1,4 +1,5 @@
 import { DOMStrings, BackEndURL } from './dataStrings.js'
+import { addListenerCheckboxes } from './events.js'
 
 const insertIngredientsHTML = (itemName, list, selector, completed) => {
   let html = ''
@@ -22,7 +23,6 @@ const fetchIngredients = (list) => {
   fetch(BackEndURL + path)
     .then(response => response.json())
     .then(data => {
-      console.log(data)
       const ingredientsArray = Object.entries(data)
       ingredientsArray.forEach(ingArray => {
         if (ingArray[1] === 1) {
@@ -42,7 +42,6 @@ const fetchAll = () => {
       const numberOfLists = Object.keys(data).length
       for (let i = 0; i < numberOfLists; i++) {
         const listName = Object.keys(data)[i]
-        // console.log('kapout ', Object.keys(data)[i])
         const ingredientsArray = Object.entries(Object.values(data)[i])
         ingredientsArray.forEach(ingArray => {
           if (ingArray[1] === 1) {
@@ -56,28 +55,6 @@ const fetchAll = () => {
     })
 }
 
-const populateContainers = (list = 'All') => {
-  document.querySelector(DOMStrings.completedItems).innerHTML = ''
-  document.querySelector(DOMStrings.pendingItems).innerHTML = ''
-  if (list === 'All') {
-    fetchAll()
-  } else {
-    fetchIngredients(list)
-  }
-}
-
-const addListenerCheckboxes = () => {
-  document.querySelectorAll(DOMStrings.checkboxes).forEach(chkBox => {
-    chkBox.addEventListener('change', (event) => {
-      // console.log(event.target.checked)
-      const checked = event.target.checked
-      const name = decodeURI(chkBox.name.split('-')[0])
-      const list = decodeURI(chkBox.name.split('-')[1])
-      patchIngredient(name, list, checked)
-    })
-  })
-}
-
 const patchIngredient = (ingName, ingList, checked) => {
   const listName = document.querySelector(DOMStrings.listSelection).innerText
   const value = checked ? 1 : 0
@@ -88,7 +65,17 @@ const patchIngredient = (ingName, ingList, checked) => {
   })
     .then(response => response.json())
     .then(data => {
-      populateContainers(listName)
+      loadIngredients(listName)
     })
 }
-export { populateContainers }
+
+const loadIngredients = (list = 'All') => {
+  document.querySelector(DOMStrings.completedItems).innerHTML = ''
+  document.querySelector(DOMStrings.pendingItems).innerHTML = ''
+  if (list === 'All') {
+    fetchAll()
+  } else {
+    fetchIngredients(list)
+  }
+}
+export { loadIngredients, patchIngredient }

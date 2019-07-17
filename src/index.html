@@ -19,57 +19,66 @@
       <div class="col-12 col-lg-6">
         <header class="header">
           <div class="header-left">
-            <a class="active" href="#">GROCERIES APP</a>
+            <p class="title-big">GROCERIES APP</p>
           </div>
 
           <div class="header-right">
-            <a class="active" href="#">Login</a>
+            <a id="login-link" class="title-big link-nostyle" href="#">Login</a>
           </div>
 
         </header>
         <div class="center">
           <div class="category">
-            <div class="btn-group">
-              <button class="btn btn-select" type="button">
-                Large split button
+
+            <div class="btn-group" style="width: 200px;">
+              <button id="dropdown-recipes-selection" class="btn btn-select" type="button">
+                All
               </button>
               <button type="btn" class="btn btn-split dropdown-toggle dropdown-toggle-split" data-toggle="dropdown"
                 aria-haspopup="true" aria-expanded="false">
                 <span class="sr-only">Toggle Dropdown</span>
               </button>
-              <div class="dropdown-menu">
-                ...
+              <div id="dropdown-recipes" class="dropdown-menu dropdown-menu-right" style="width: 100%;">
               </div>
             </div>
-            <i class="fas fa-plus-circle"></i>
+<!-- 
+            <select class="selectpicker">
+              <option value="1" selected="selected">Feature 1</option>
+              <option value="2">Feature 2</option>
+              <option value="3">Feature 3</option>
+              <option value="4">Feature 4</option>
+            </select> -->
+
+            <!-- <div class="btn-group dropdown" uib-dropdown="" style="">
+                <button id="split-button" type="button" class="btn btn-danger">{{selectedItem || 'Choose Item'}}</button>
+                <button type="button" class="btn btn-danger dropdown-toggle" uib-dropdown-toggle="" aria-haspopup="true" aria-expanded="true">
+                  <span class="caret"></span>
+                </button>
+                <ul uib-dropdown-menu="" role="menu" aria-labelledby="split-button" class="dropdown-menu">
+                  <li role="menuitem" ng-repeat="item in items" ng-click="selectItem(item)"><a href>{{item}}</a></li>
+                </ul>
+              </div> -->
+
+
+            <button class="btn-transparent" type="button" id="add-recipe"><i class="fas fa-plus-circle"></i> </button>
+
           </div>
 
           <div class="ingredients">
-            <div class="items">
+            <div class="items" id="pending-items">
               <form class="add-item">
-                <input type="text" id="new-ingredient" name="new-ingredient" placeholder="Add new item">
+                <input type="text" id="new-ingredient" value="" name="new-ingredient" placeholder="Add new item">
               </form>
-              <label class="item">
-                <p>Bread</p>
-                <input type="checkbox" aria-label="Checkbox for following text input">
-              </label>
-              <label class="item">
-                <p>Chicken</p>
-                <input type="checkbox" aria-label="Checkbox for following text input">
-              </label>
             </div>
 
             <div class="btn-group">
-              <button class="btn-completed">Completed</button>
+              <button id="btn-completed" class="btn-transparent">Completed</button>
               <i class="fas fa-chevron-up"></i>
               <i class="fas fa-chevron-down"></i>
             </div>
 
-            <div class="items completed">
-              <label class="item">
-                <p>wine</p>
-                <input type="checkbox" aria-label="Checkbox for following text input">
-              </label>
+            <div class="items" id="completed-items">
+
             </div>
           </div>
         </div>
@@ -77,16 +86,22 @@
         <footer class="footer">
           <ul>
             <li>
-              <i class="fas fa-list-ul"></i>
-              <p>List</p>
+              <a href="" id="list-link" class="link-nostyle">
+                <i class="fas fa-list-ul"></i>
+                <p>List</p>
+              </a>
             </li>
             <li>
-              <i class="fas fa-chart-pie"></i>
-              <p>Stats</p>
+              <a href="" id="stats-link" class="link-nostyle">
+                <i class="fas fa-chart-pie"></i>
+                <p>Stats</p>
+              </a>
             </li>
             <li>
-              <i class="fas fa-utensils"></i>
-              <p>Recipes</p>
+              <a href="" id="recipes-link" class="link-nostyle">
+                <i class="fas fa-utensils"></i>
+                <p>Recipes</p>
+              </a>
             </li>
           </ul>
         </footer>
@@ -103,6 +118,7 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
     integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
     crossorigin="anonymous"></script>
+  <script src="app.js"></script>
 </body>
 
 </html>

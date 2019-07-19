@@ -13,10 +13,10 @@
   <script src="https://kit.fontawesome.com/0824285e7f.js"></script>
 </head>
 
-<body>
+<body id="body">
   <div class="container">
     <div class="row justify-content-center">
-      <div class="col-12 col-lg-6">
+      <div class="col-12 col-lg-6 column">
         <header class="header">
           <div class="header-left">
             <p class="title-big">GROCERIES APP</p>
@@ -30,15 +30,15 @@
         <div class="center">
           <div class="category">
 
-            <div class="btn-group" style="width: 200px;">
-              <button id="dropdown-recipes-selection" class="btn btn-select" type="button">
+            <div class="btn-group" style="width: 200px;" oncontextmenu="return false;">
+              <button id="dropdown-lists-selection" class="btn btn-select" type="button">
                 All
               </button>
               <button type="btn" class="btn btn-split dropdown-toggle dropdown-toggle-split" data-toggle="dropdown"
                 aria-haspopup="true" aria-expanded="false">
                 <span class="sr-only">Toggle Dropdown</span>
               </button>
-              <div id="dropdown-recipes" class="dropdown-menu dropdown-menu-right" style="width: 100%;">
+              <div id="dropdown-lists" class="dropdown-menu dropdown-menu-right" style="width: 100%;">
               </div>
             </div>
             <!-- 
@@ -60,7 +60,8 @@
               </div> -->
 
 
-            <button class="btn-transparent" type="button" id="add-recipe"><i class="fas fa-plus-circle"></i> </button>
+            <button class="btn-transparent" type="button" id="add-list" data-toggle="modal"
+              data-target="#modalInputList"><i class="fas fa-plus-circle"></i> </button>
 
           </div>
 
@@ -74,7 +75,7 @@
             <div class="btn-group">
               <button id="btn-completed" class="btn-transparent">Completed
                 <i class="fas fa-chevron-up active"></i>
-                <i class="fas fa-chevron-down"style="display: none;"></i>
+                <i class="fas fa-chevron-down" style="display: none;"></i>
               </button>
             </div>
 
@@ -106,6 +107,36 @@
             </li>
           </ul>
         </footer>
+        <!-- <div class="modal-input-list">
+          <div>
+            <p>Hey fuck off</p>
+          </div>
+        </div> -->
+
+        
+      </div>
+    </div>
+    
+    <div class="modal fade" id="modalInputList" tabindex="-1" role="dialog" aria-labelledby="modalInputListLabel"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <!-- <div class="modal-header" style="border: none;">
+            <h5 class="modal-title" id="modalInputListLabel">Enter new list</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div> -->
+          <div class="modal-body">
+            <form id="add-list" submit="test()">
+              <input type="text" id="new-list-input" value="" name="new-list" placeholder="Add new list">
+            </form>
+          </div>
+          <div class="modal-footer" style="border: none;">
+            <button type="button" class="btn" data-dismiss="modal">Close</button>
+            <button id="send-list" type="button" class="btn btn-split">Save changes</button>
+          </div>
+        </div>
       </div>
     </div>
   </div>

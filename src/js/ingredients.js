@@ -1,14 +1,15 @@
 import { DOMStrings, BackEndURL } from './dataStrings.js'
+import { addListenerCheckboxes } from './events.js'
 
 const insertIngredientsHTML = (itemName, list, selector, completed) => {
   let html = ''
   if (completed) {
-    html = `<label class="item">
+    html = `<label class="item" oncontextmenu="return false;">
     <p class="text-linethrough">${itemName}</p>
     <input name="${itemName}-${list}" type="checkbox" aria-label="Checkbox for following text input" class="ing-checkbox" checked>
     </label>`
   } else {
-    html = `<label class="item">
+    html = `<label class="item" oncontextmenu="return false;">
     <p>${itemName}</p>
     <input name="${itemName}-${list}" type="checkbox" aria-label="Checkbox for following text input" class="ing-checkbox">
     </label>`
@@ -22,13 +23,14 @@ const fetchIngredients = (list) => {
   fetch(BackEndURL + path)
     .then(response => response.json())
     .then(data => {
-      console.log(data)
       const ingredientsArray = Object.entries(data)
       ingredientsArray.forEach(ingArray => {
-        if (ingArray[1] === 1) {
-          insertIngredientsHTML(ingArray[0], list, DOMStrings.completedItems, true)
-        } else {
-          insertIngredientsHTML(ingArray[0], list, DOMStrings.pendingItems, false)
+        if (ingArray[0] !== 'thisIsADummyData') {
+          if (ingArray[1] === 1) {
+            insertIngredientsHTML(ingArray[0], list, DOMStrings.completedItems, true)
+          } else {
+            insertIngredientsHTML(ingArray[0], list, DOMStrings.pendingItems, false)
+          }
         }
       })
       addListenerCheckboxes()
@@ -42,13 +44,14 @@ const fetchAll = () => {
       const numberOfLists = Object.keys(data).length
       for (let i = 0; i < numberOfLists; i++) {
         const listName = Object.keys(data)[i]
-        // console.log('kapout ', Object.keys(data)[i])
         const ingredientsArray = Object.entries(Object.values(data)[i])
         ingredientsArray.forEach(ingArray => {
-          if (ingArray[1] === 1) {
-            insertIngredientsHTML(ingArray[0], listName, DOMStrings.completedItems, true)
-          } else {
-            insertIngredientsHTML(ingArray[0], listName, DOMStrings.pendingItems, false)
+          if (ingArray[0] !== 'thisIsADummyData') {
+            if (ingArray[1] === 1) {
+              insertIngredientsHTML(ingArray[0], listName, DOMStrings.completedItems, true)
+            } else {
+              insertIngredientsHTML(ingArray[0], listName, DOMStrings.pendingItems, false)
+            }
           }
         })
       }
@@ -56,7 +59,27 @@ const fetchAll = () => {
     })
 }
 
-const populateContainers = (list = 'All') => {
+const patchIngredient = (ingName, ingList, checked, deleteIng = false) => {
+  const listName = document.querySelector(DOMStrings.listSelection).innerText
+  const value = checked ? 1 : 0
+  let patchString = `{"${ingName}":${value}}`
+  if (deleteIng) {
+    patchString = `{"${ingName}": null}`
+    console.log(patchString)
+  } else {
+    patchString = `{"${ingName}":${value}}`
+  }
+  fetch(BackEndURL + `/${ingList}.json`, {
+    method: 'PATCH',
+    body: patchString
+  })
+    .then(response => response.json())
+    .then(data => {
+      loadIngredients(listName)
+    })
+}
+
+const loadIngredients = (list = 'All') => {
   document.querySelector(DOMStrings.completedItems).innerHTML = ''
   document.querySelector(DOMStrings.pendingItems).innerHTML = ''
   if (list === 'All') {
@@ -65,30 +88,4 @@ const populateContainers = (list = 'All') => {
     fetchIngredients(list)
   }
 }
-
-const addListenerCheckboxes = () => {
-  document.querySelectorAll(DOMStrings.checkboxes).forEach(chkBox => {
-    chkBox.addEventListener('change', (event) => {
-      // console.log(event.target.checked)
-      const checked = event.target.checked
-      const name = decodeURI(chkBox.name.split('-')[0])
-      const list = decodeURI(chkBox.name.split('-')[1])
-      patchIngredient(name, list, checked)
-    })
-  })
-}
-
-const patchIngredient = (ingName, ingList, checked) => {
-  const listName = document.querySelector(DOMStrings.listSelection).innerText
-  const value = checked ? 1 : 0
-  const patchString = `{"${ingName}":${value}}`
-  fetch(BackEndURL + `/${ingList}.json`, {
-    method: 'PATCH',
-    body: patchString
-  })
-    .then(response => response.json())
-    .then(data => {
-      populateContainers(listName)
-    })
-}
-export { populateContainers }
+export { loadIngredients, patchIngredient }

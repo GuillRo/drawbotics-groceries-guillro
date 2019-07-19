@@ -8,12 +8,30 @@ body {
   margin: 0;
 }
 
+/* .container {
+  margin: 0;
+  padding: 0;
+} */
+
+.column {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+}
+
+/* .center {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+} */
+
 .btn-transparent {
   background: none;
   border: none;
 }
 
-.link-nostyle, .link-nostyle:hover {
+.link-nostyle,
+.link-nostyle:hover {
   text-decoration: none;
   color: unset;
 }
@@ -27,13 +45,59 @@ body {
   margin: 0;
 }
 
-.text-linethrough{
+.text-linethrough {
   text-decoration: line-through;
 }
 
 #btn-completed i {
   pointer-events: none;
 }
+/* 
+.modal {
+  top: 150px;
+} */
+
+.modal-body {
+  text-align: center;
+}
+
+.modal-body input {
+  width: 100%;
+  text-align: center;
+}
+
+.modal-dialog {
+  max-width: 300px;
+}
+
+.modal-content {
+  /* width: 75%; */
+  border-radius: 0;
+}
+
+
+
+/* .modal {
+  text-align: center;
+} */
+
+/* @media screen and (min-width: 768px) { 
+  .modal:before {
+    display: inline-block;
+    vertical-align: middle;
+    content: " ";
+    height: 100%;
+  }
+} */
+
+/* .modal-dialog {
+  display: inline-block;
+  text-align: left;
+  vertical-align: middle;
+} */
+
+
+
 
 .header {
   background-color: var(--main-bg-color);

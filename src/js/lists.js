@@ -1,5 +1,6 @@
 import { DOMStrings, BackEndURL } from './dataStrings.js'
 
+// Insert the different lists' names in the dropdown menu.
 const insertFectchedListsInDropdown = () => {
   const selector = DOMStrings.dropDownlists
   document.querySelector(selector).innerHTML = ''
@@ -21,6 +22,7 @@ const insertFectchedListsInDropdown = () => {
     })
 }
 
+// Add a list to the DB.
 const addListToDB = (listName) => {
   fetch(BackEndURL + `/${listName}.json`, {
     method: 'PATCH',

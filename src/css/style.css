@@ -113,7 +113,7 @@ body {
   overflow: auto;
 }
 
-.center .category {
+.center .lists {
   display: flex;
   color: var(--main-txt-color);
   align-items: center;
@@ -137,9 +137,9 @@ body {
   color: white;
 }
 
-.ingredients {
+/* .items-container {
   /* padding: 25px; */
-}
+} */
 
 .items {
   text-align: center;
@@ -161,12 +161,12 @@ body {
   align-items: center;
 }
 
-.ingredients .item p {
+.items-container .item p {
   margin: 0;
   padding: 5px;
 }
 
-.ingredients .item input {
+.items-container .item input {
   margin: 5px;
 }
 

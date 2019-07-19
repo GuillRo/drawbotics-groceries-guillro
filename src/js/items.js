@@ -65,7 +65,6 @@ const patchIngredient = (ingName, ingList, checked, deleteIng = false) => {
   let patchString = `{"${ingName}":${value}}`
   if (deleteIng) {
     patchString = `{"${ingName}": null}`
-    console.log(patchString)
   } else {
     patchString = `{"${ingName}":${value}}`
   }
@@ -88,4 +87,16 @@ const loadIngredients = (list = 'All') => {
     fetchIngredients(list)
   }
 }
-export { loadIngredients, patchIngredient }
+
+const addItemToList = (itemName, listName) => {
+  fetch(BackEndURL + `/${listName}.json`, {
+    method: 'PATCH',
+    body: `{"${itemName}":0}`
+  })
+    .then(response => response.json())
+    .then(data => {
+      loadIngredients(listName)
+    })
+}
+
+export { loadIngredients, patchIngredient,addItemToList }

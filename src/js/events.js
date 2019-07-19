@@ -1,6 +1,6 @@
 import { DOMStrings, BackEndURL } from './dataStrings.js'
-import { loadIngredients, patchIngredient } from './ingredients.js'
-import { insertFectchedListsInDropdown } from './dropdown.js'
+import { loadIngredients, patchIngredient, addItemToList } from './items.js'
+import { insertFectchedListsInDropdown, addListToDB } from './lists.js'
 
 const completedButtonHandler = () => {
   document.querySelector(DOMStrings.completedBtn).addEventListener('click', (event) => {
@@ -24,7 +24,6 @@ const completedButtonHandler = () => {
 
 const showDropdownSelectedList = () => {
   document.querySelector(DOMStrings.dropDownlists).addEventListener('click', (event) => {
-    // console.log(event.target.textContent)
     const selectedList = event.target.textContent
     document.querySelector(DOMStrings.listSelection).innerText = selectedList
     loadIngredients(selectedList)
@@ -33,14 +32,11 @@ const showDropdownSelectedList = () => {
     const selectedList = event.target.textContent
     switch (event.button) {
       case 0:
-        // left mouse button
         break
       case 1:
-        // middle mouse button
         break
       default:
         event.preventDefault()
-        console.log(selectedList)
         fetch(BackEndURL + `.json`, {
           method: 'PATCH',
           body: `{"${selectedList}": null}`
@@ -50,7 +46,6 @@ const showDropdownSelectedList = () => {
             insertFectchedListsInDropdown()
             loadIngredients()
           })
-      // 2 === right mouse button
     }
   })
 }
@@ -58,7 +53,6 @@ const showDropdownSelectedList = () => {
 const addListenerCheckboxes = () => {
   document.querySelectorAll(DOMStrings.item).forEach(chkBox => {
     chkBox.addEventListener('change', (event) => {
-      // console.log(event.target.checked)
       const checked = event.target.checked
       const name = decodeURI(chkBox.children[1].name.split('-')[0])
       const list = decodeURI(chkBox.children[1].name.split('-')[1])
@@ -67,23 +61,59 @@ const addListenerCheckboxes = () => {
     chkBox.addEventListener('mousedown', (event) => {
       switch (event.button) {
         case 0:
-          // left mouse button
           break
         case 1:
-          // middle mouse button
           break
         default:
           event.preventDefault()
-          // event.stopPropagation()
-          console.log(decodeURI(chkBox.children[1].name.split('-')[0]), decodeURI(chkBox.children[1].name.split('-')[1]))
           const checked = event.target.checked
           const name = decodeURI(chkBox.children[1].name.split('-')[0])
           const list = decodeURI(chkBox.children[1].name.split('-')[1])
           patchIngredient(name, list, checked, true)
-        // 2 === right mouse button
       }
     })
   })
 }
+const addListOnClickEvent = () => {
+  document.querySelector(DOMStrings.sendListBtn).addEventListener('click', (event) => {
+    const test = document.querySelector(DOMStrings.inputList).value
+    addListToDB(test)
+    document.querySelector(DOMStrings.inputList).value = ''
+    document.querySelector('#modalInputList').click()
+  })
+}
 
-export { completedButtonHandler, showDropdownSelectedList, addListenerCheckboxes }
+document.querySelector(DOMStrings.inputList).addEventListener('keydown', (event) => {
+  if (event.keyCode === 13) {
+    event.preventDefault()
+  }
+})
+
+document.querySelector(DOMStrings.inputList).addEventListener('keydown', (event) => {
+  if (event.keyCode === 13) {
+    event.preventDefault()
+    const test = document.querySelector(DOMStrings.inputList).value
+    addListToDB(test)
+    document.querySelector(DOMStrings.inputList).value = ''
+    document.querySelector('#modalInputList').click()
+  }
+})
+
+const addItemOnClickEvent = () => {
+  document.querySelector(DOMStrings.inputIngredient).addEventListener('keydown', (event) => {
+    if (event.keyCode === 13) {
+      event.preventDefault()
+    }
+  })
+
+  document.querySelector(DOMStrings.inputIngredient).addEventListener('keyup', (event) => {
+    if (event.keyCode === 13) {
+      const newItem = document.querySelector(DOMStrings.inputIngredient).value
+      const list = document.querySelector(DOMStrings.listSelection).innerText
+      document.querySelector(DOMStrings.inputIngredient).value = ''
+      addItemToList(newItem, list)
+    }
+  })
+}
+
+export { completedButtonHandler, showDropdownSelectedList, addListenerCheckboxes, addListOnClickEvent, addItemOnClickEvent }

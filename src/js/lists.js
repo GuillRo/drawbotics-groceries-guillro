@@ -21,4 +21,15 @@ const insertFectchedListsInDropdown = () => {
     })
 }
 
-export { insertFectchedListsInDropdown }
+const addListToDB = (listName) => {
+  fetch(BackEndURL + `/${listName}.json`, {
+    method: 'PATCH',
+    body: JSON.stringify({ thisIsADummyData: 0 })
+  })
+    .then(response => response.json())
+    .then(data => {
+      insertFectchedListsInDropdown()
+    })
+}
+
+export { insertFectchedListsInDropdown, addListToDB }

@@ -1,8 +1,10 @@
 # drawbotics-groceries-guillro
-pet project for front-end position at Drawbotics.
+
+Pet project for front-end position at Drawbotics.
+
+The app is composed of items and lists of items, which are stored in a Firebase database. Is uses Font Awesome, Google Fonts, Bootstrap and vanilla JS. A basic express server is used to serve the files on port 3000.
 
 # Features
-The app is composed of items and lists of items, which are stored in a Firebase database.
 
 A dropdown menu allows to display the different lists. 'All' display all items in every lists.
 

@@ -10,7 +10,7 @@ Lists and items can be added by typing their name in the corresponding input.
 
 Adding an item to the 'All' list will create a new "Misc" list.
 
-Items can be moved to the "completed" container by left-clicking on them. They can be moved back by left clicking again.
+Items can be moved to the "completed" container by left-clicking on them. They can be moved back by left-clicking again.
 
 Right-clicking on an item or on a list (in the list dropdown menu) will delete the list or item.
 

@@ -1,21 +1,20 @@
-import { selectors } from './selectors.js'
+import { DOMStrings, BackEndURL } from './dataStrings.js'
 
 const populateDropdownMenu = () => {
-  const insertDropdownHTML = (recipes, selector) => {
+  const insertDropdownHTML = (lists, selector) => {
     const htmlAll = `<a class="dropdown-item" href="#">All</a>`
     document.querySelector(selector).insertAdjacentHTML('beforeend', htmlAll)
-    recipes.forEach(recipe => {
-      const html = `<a class="dropdown-item" href="#">${recipe}</a>`
+    lists.forEach(list => {
+      const html = `<a class="dropdown-item" href="#">${list}</a>`
       document.querySelector(selector).insertAdjacentHTML('beforeend', html)
     })
   }
 
-  fetch(selectors.BackEndURL + 'Groceries.json')
+  fetch(BackEndURL + '.json')
     .then(response => response.json())
     .then(data => {
-      const recipes = Object.keys(data)
-      // console.log(recipes)
-      insertDropdownHTML(recipes, selectors.DOMStrings.dropDownRecipes)
+      const lists = Object.keys(data)
+      insertDropdownHTML(lists, DOMStrings.dropDownlists)
     })
 }
 

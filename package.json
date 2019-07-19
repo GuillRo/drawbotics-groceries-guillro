@@ -4,11 +4,13 @@
   "description": "pet project for front-end position at Drawbotics",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server"
   },
   "author": "Guillaume Rossi",
   "license": "ISC",
   "devDependencies": {
+    "babel-eslint": "^10.0.2",
     "eslint": "^6.0.1",
     "eslint-config-standard": "^13.0.1",
     "eslint-plugin-import": "^2.18.0",

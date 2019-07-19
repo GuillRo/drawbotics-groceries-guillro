@@ -4,7 +4,7 @@ const path = require('path')
 const srcDir = path.join(__dirname, '/src')
 
 const app = express()
-const PORT = process.env.PORT = 3000
+const PORT = process.env.PORT || 3000
 
 // app.use('/css', express.static(path.join(__dirname, '/src/css')))
 // app.use('/js', express.static(path.join(__dirname, '/src/js')))

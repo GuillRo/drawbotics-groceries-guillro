@@ -16,20 +16,19 @@
 <body id="body">
   <div class="container">
     <div class="row justify-content-center">
-      <div class="col-12 col-lg-6 column">
+      <!-- <div class="col-12 col-lg-6 column"> -->
+      <div class="col-sm-12  col-md-6 col-lg-4 column">
         <header class="header">
           <div class="header-left">
             <p class="title-big">GROCERIES APP</p>
           </div>
-
           <div class="header-right">
             <a id="login-link" class="title-big link-nostyle" href="#">Login</a>
           </div>
-
         </header>
-        <div class="center">
-          <div class="category">
 
+        <div class="center">
+          <div class="lists">
             <div class="btn-group" style="width: 200px;" oncontextmenu="return false;">
               <button id="dropdown-lists-selection" class="btn btn-select" type="button">
                 All
@@ -41,33 +40,13 @@
               <div id="dropdown-lists" class="dropdown-menu dropdown-menu-right" style="width: 100%;">
               </div>
             </div>
-            <!-- 
-            <select class="selectpicker">
-              <option value="1" selected="selected">Feature 1</option>
-              <option value="2">Feature 2</option>
-              <option value="3">Feature 3</option>
-              <option value="4">Feature 4</option>
-            </select> -->
-
-            <!-- <div class="btn-group dropdown" uib-dropdown="" style="">
-                <button id="split-button" type="button" class="btn btn-danger">{{selectedItem || 'Choose Item'}}</button>
-                <button type="button" class="btn btn-danger dropdown-toggle" uib-dropdown-toggle="" aria-haspopup="true" aria-expanded="true">
-                  <span class="caret"></span>
-                </button>
-                <ul uib-dropdown-menu="" role="menu" aria-labelledby="split-button" class="dropdown-menu">
-                  <li role="menuitem" ng-repeat="item in items" ng-click="selectItem(item)"><a href>{{item}}</a></li>
-                </ul>
-              </div> -->
-
-
             <button class="btn-transparent" type="button" id="add-list" data-toggle="modal"
-              data-target="#modalInputList"><i class="fas fa-plus-circle"></i> </button>
-
+              data-target="#modal-input-lists"><i class="fas fa-plus-circle"></i> </button>
           </div>
 
-          <div class="ingredients">
+          <div class="items-container">
             <form class="add-item">
-              <input type="text" id="new-ingredient" value="" name="new-ingredient" placeholder="Add new item">
+              <input type="text" id="new-item" value="" name="new-item" placeholder="Add new item">
             </form>
             <div class="items" id="pending-items">
             </div>
@@ -78,7 +57,6 @@
                 <i class="fas fa-chevron-down" style="display: none;"></i>
               </button>
             </div>
-
             <div class="items" id="completed-items">
 
             </div>
@@ -107,26 +85,13 @@
             </li>
           </ul>
         </footer>
-        <!-- <div class="modal-input-list">
-          <div>
-            <p>Hey fuck off</p>
-          </div>
-        </div> -->
-
-        
       </div>
     </div>
-    
-    <div class="modal fade" id="modalInputList" tabindex="-1" role="dialog" aria-labelledby="modalInputListLabel"
+
+    <div class="modal fade" id="modal-input-lists" tabindex="-1" role="dialog" aria-labelledby="modal-input-lists-label"
       aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
-          <!-- <div class="modal-header" style="border: none;">
-            <h5 class="modal-title" id="modalInputListLabel">Enter new list</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div> -->
           <div class="modal-body">
             <form id="add-list" submit="test()">
               <input type="text" id="new-list-input" value="" name="new-list" placeholder="Add new list">

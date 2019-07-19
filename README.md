@@ -26,7 +26,7 @@ The items.js and lists.js files contains the relevant methods of for the lists a
 
 The events.js file contains the different listeners.
 
-# Shortcomings
+# Future improvements
 
 Right now the CSS lacks in modularity. This is something I should have done in the beginning but due to time restrictions I went a bit too fast and didn't think enough of the structure of the CSS code.
 

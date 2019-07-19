@@ -6,7 +6,7 @@ The app is composed of items and lists of items, which are stored in a Firebase 
 
 A dropdown menu allows to display the different lists. 'All' display all items in every lists.
 
-Lists and items can be added by typing their name in the output.
+Lists and items can be added by typing their name in the corresponding input.
 
 Adding an item to the 'All' list will create a new "Misc" list.
 

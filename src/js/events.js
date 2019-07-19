@@ -32,7 +32,7 @@ const showDropdownSelectedList = () => {
     document.querySelector(DOMStrings.listSelection).innerText = selectedList
     loadItems(selectedList)
   })
-  document.querySelector(DOMStrings.dropDownlists).addEventListener('mousedown', (event) => {
+  document.querySelector(DOMStrings.dropDownlists).addEventListener('mouseup', (event) => {
     const selectedList = event.target.textContent
     switch (event.button) {
       case 0:
@@ -69,7 +69,10 @@ const completeItemsOnLeftClick = () => {
 // Right-click on an item will delete it.
 const deleteItemsOnRightClick = () => {
   document.querySelectorAll(DOMStrings.item).forEach(item => {
-    item.addEventListener('mousedown', (event) => {
+    item.addEventListener('mouseup', (event) => {
+      const checked = event.target.checked
+      const name = decodeURI(item.children[1].name.split('-')[0])
+      const list = decodeURI(item.children[1].name.split('-')[1])
       switch (event.button) {
         case 0:
           break
@@ -77,9 +80,6 @@ const deleteItemsOnRightClick = () => {
           break
         default:
           event.preventDefault()
-          const checked = event.target.checked
-          const name = decodeURI(item.children[1].name.split('-')[0])
-          const list = decodeURI(item.children[1].name.split('-')[1])
           patchItem(name, list, checked, true)
       }
     })

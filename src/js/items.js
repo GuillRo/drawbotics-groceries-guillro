@@ -65,6 +65,17 @@ const fetchAll = () => {
     })
 }
 
+// Empty the items and reload them.
+const loadItems = (list = 'All') => {
+  document.querySelector(DOMStrings.completedItems).innerHTML = ''
+  document.querySelector(DOMStrings.pendingItems).innerHTML = ''
+  if (list === 'All') {
+    fetchAll()
+  } else {
+    fetchItemsOfAList(list)
+  }
+}
+
 // Modify the state of an item (completed or uncompleted)
 // this method is also used to suppress an element, since Firebase does not accept
 // documents without a Value.
@@ -87,16 +98,6 @@ const patchItem = (ingName, ingList, checked, deleteIng = false) => {
     })
 }
 
-// Empty the items and reload them.
-const loadItems = (list = 'All') => {
-  document.querySelector(DOMStrings.completedItems).innerHTML = ''
-  document.querySelector(DOMStrings.pendingItems).innerHTML = ''
-  if (list === 'All') {
-    fetchAll()
-  } else {
-    fetchItemsOfAList(list)
-  }
-}
 
 // Add new item in the DB.
 const addItemToList = (itemName, listName) => {

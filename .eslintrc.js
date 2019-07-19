@@ -32,8 +32,7 @@ module.exports = {
             experimentalObjectRestSpread: true,
         },
     },
-    extends: ['eslint:recommended', 'plugin:react/recommended'],
-    plugins: ['react'],
+    extends: ['eslint:recommended'],
     settings: {
         react: {
             version: 'latest',
@@ -72,10 +71,11 @@ module.exports = {
         'no-whitespace-before-property': ['warn'],
         'no-unreachable': ['warn'],
         'no-constant-condition': ['warn'],
+        // 'semi': [2, "always"]
 
         // React
-        'react/prop-types': ['off'],
-        'react/no-unescaped-entities': ['off'],
-        'react/style-prop-object': ['warn'],
+        // 'react/prop-types': ['off'],
+        // 'react/no-unescaped-entities': ['off'],
+        // 'react/style-prop-object': ['warn'],
     },
 };

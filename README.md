@@ -29,3 +29,5 @@ The events.js file contains the different listeners.
 # Shortcomings
 
 Right now the CSS lacks in modularity. This is something I should have done in the beginning but due to time restrictions I went a bit too fast and didn't think enough of the structure of the CSS code.
+
+Generally speaking the code is not DRY enough and could be improved in that regard.

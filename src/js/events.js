@@ -1,6 +1,7 @@
 import { DOMStrings, BackEndURL } from './dataStrings.js'
 import { loadItems, patchItem, addItemToList } from './items.js'
 import { insertFectchedListsInDropdown, addListToDB, redirectToList } from './lists.js'
+import { validateCredentials, signOutUser } from './users.js'
 
 // Handle the "completed" button's chevron (up or down) and display or remove the "completed" items.
 const completedButtonHandler = () => {
@@ -133,6 +134,45 @@ const addItemOnEnterPressEvent = () => {
   })
 }
 
+// Get login and password in their input fields and send them for validation.
+const logUserEvent = () => {
+  let login = document.querySelector(DOMStrings.inputLogin)
+  let password = document.querySelector(DOMStrings.inputPassword)
+  
+  const getCredentials = () => {
+    return JSON.parse(`{"login": "${login.value}", "password":"${password.value}"}`)
+  }
+
+  login.addEventListener('keyup', (event) => {
+    if (event.keyCode === 13) {
+      validateCredentials(getCredentials())
+      login.value = ''
+      password.value = ''
+    }
+  })
+
+  password.addEventListener('keyup', (event) => {
+    if (event.keyCode === 13) {
+      validateCredentials(getCredentials())
+      login.value = ''
+      password.value = ''
+    }
+  })
+
+  document.querySelector(DOMStrings.signInBtn).addEventListener('click', (event) => {
+    validateCredentials(getCredentials())
+    login.value = ''
+    password.value = ''
+  })
+}
+
+// logout the user when he/she clicks the "logout" button.
+const logoutHandler = () => {
+  document.querySelector(DOMStrings.logoutLink).addEventListener('click', () => {
+    signOutUser()
+  })
+}
+
 export {
   completedButtonHandler,
   showDropdownSelectedList,
@@ -140,5 +180,7 @@ export {
   deleteItemsOnRightClick,
   addListOnClickEvent,
   addItemOnEnterPressEvent,
-  addListOnEnterPressEvent
+  addListOnEnterPressEvent,
+  logUserEvent,
+  logoutHandler
 }

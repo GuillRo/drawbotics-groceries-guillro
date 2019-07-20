@@ -23,11 +23,26 @@
             <p class="title-big">GROCERIES APP</p>
           </div>
           <div class="header-right">
-            <a id="login-link" class="title-big link-nostyle" href="#">Login</a>
+            <a id="logout-link" class="title-big link-nostyle" href="#" style="display: none;">Logout</a>
           </div>
         </header>
 
-        <div class="center">
+        <div class="center-login">
+          <label for="login-input">
+            Login:
+            <input id="login-input" type="text" />
+          </label>
+          <label for="password-input">
+            Password:
+            <input id="password-input" type="text" />
+          </label>
+          <div>
+            <button id="btn-signin">Sign in</button>
+            <button id="btn-signup">Sign up</button>
+          </div>
+        </div>
+
+        <div class="center" style="display: none;">
           <div class="lists">
             <div class="btn-group" style="width: 200px;" oncontextmenu="return false;">
               <button id="dropdown-lists-selection" class="btn btn-select" type="button">

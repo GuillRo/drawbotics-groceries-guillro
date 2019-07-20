@@ -1,6 +1,6 @@
 import { DOMStrings, BackEndURL } from './dataStrings.js'
 import { loadItems, patchItem, addItemToList } from './items.js'
-import { insertFectchedListsInDropdown, addListToDB } from './lists.js'
+import { insertFectchedListsInDropdown, addListToDB, redirectToList } from './lists.js'
 
 // Handle the "completed" button's chevron (up or down) and display or remove the "completed" items.
 const completedButtonHandler = () => {
@@ -48,7 +48,7 @@ const showDropdownSelectedList = () => {
           .then(response => response.json())
           .then(data => {
             insertFectchedListsInDropdown()
-            loadItems()
+            redirectToList('All')
           })
     }
   })

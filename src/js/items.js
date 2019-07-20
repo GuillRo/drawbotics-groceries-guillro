@@ -1,5 +1,6 @@
 import { DOMStrings, BackEndURL } from './dataStrings.js'
 import { completeItemsOnLeftClick, deleteItemsOnRightClick, } from './events.js'
+import { insertFectchedListsInDropdown, redirectToList } from './lists.js';
 
 // Insert items to the DOM, in the completed or uncompleted zone according to
 // their state in the DB.
@@ -101,14 +102,27 @@ const patchItem = (ingName, ingList, checked, deleteIng = false) => {
 
 // Add new item in the DB.
 const addItemToList = (itemName, listName) => {
-  fetch(BackEndURL + `/${listName}.json`, {
-    method: 'PATCH',
-    body: `{"${itemName}":0}`
-  })
-    .then(response => response.json())
-    .then(data => {
-      loadItems(listName)
+  if (itemName.length < 2 || itemName.length > 16 || itemName.match(/([^\wéèàç])/)) {
+    const reason = 'Item name must be between 2 and 16 characters long and composed of letters or numerals.'
+    const html = `<div class="alert alert-warning alert-dismissible fade show" role="alert">
+    <strong>Invalid item name</strong> ${reason}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>`
+  document.querySelector('#body').insertAdjacentHTML('afterbegin', html)
+  } else {
+    const list = listName === 'All' ? 'Unsorted' : listName
+    fetch(BackEndURL + `/${list}.json`, {
+      method: 'PATCH',
+      body: `{"${itemName}":0}`
     })
+      .then(response => response.json())
+      .then(data => {
+        insertFectchedListsInDropdown()
+        redirectToList(list)
+      })
+  }
 }
 
 export { loadItems, patchItem, addItemToList }

@@ -10,11 +10,6 @@ const doesUserExist = async (userName) => {
   return data ? true : false
 }
 
-// Change the display after user's logout.
-const signOutUser = () => {
-  window.location.reload(true);
-}
-
 // Load initial data of the user after he/she logged in.
 // Load the necessary events to logout, add list, etc.
 const signInUser = (login) => {
@@ -104,6 +99,11 @@ const validateNewUserLogin = (userName, password) => {
       }
       valid ? newUser(userName, password) : errorUser('This user name is already taken.')
     })
+}
+
+// Reload the page at logout. This is a dirty hack but I really don't have the time to remove all the listeners in a cleaner way.
+const signOutUser = () => {
+  window.location.reload(true);
 }
 
 export { validateCredentials, signOutUser, validateNewUserLogin }

@@ -4,13 +4,15 @@ Pet project for front-end position at Drawbotics.
 
 The app is composed of items and lists of items, which are stored in a Firebase database. Is uses Font Awesome, Google Fonts, Bootstrap, HTML, vanilla CSS and vanilla JS. A basic express server is used to serve the files on port 3000. I tried to use  as less dependancies as possible.
 
+Heroku link: https://groceries-drawbotics-guillro.herokuapp.com/
+
 # Features
 
 A dropdown menu allows to display the different lists. 'All' display all items in every lists.
 
 Lists and items can be added by typing their name in the corresponding input.
 
-Adding an item to the 'All' list will create a new "Misc" list.
+Adding an item to the 'All' list will create a new "Unsorted" list.
 
 Items can be moved to the "completed" container by left-clicking on them. They can be moved back by left-clicking again.
 
@@ -18,13 +20,15 @@ Right-clicking on an item or on a list (in the list dropdown menu) will delete t
 
 # Structure
 
-The app.js is the main file and fetch the initial data and triggers the events.
+The app.js is the "main" file and triggers the initial necessary events.
 
 The dataStrings.js regroups the relevant css selectors and the Firebase URL. This one should probably be in an .env file but for convenience I chose to leave it there.
 
 The items.js and lists.js files contains the relevant methods of for the lists and items.
 
 The events.js file contains the different listeners.
+
+The users.js contains the relevant methods regarding users (sign ing, sign up, log out,...).
 
 # Possible improvements
 

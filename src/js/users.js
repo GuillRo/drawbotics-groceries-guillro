@@ -1,4 +1,6 @@
 import { DOMStrings, BackEndURL } from './dataStrings.js'
+import { loadItems } from './items.js'
+import { insertFectchedListsInDropdown } from './lists.js'
 // import { logUserEvent } from './events.js';
 
 const isLogged = () => {
@@ -15,6 +17,8 @@ const signInUser = (login) => {
   document.querySelector(DOMStrings.centerLoggedOut).style.display = "none"
   document.querySelector(DOMStrings.logoutLink).style.cssText = ''
   document.querySelector(DOMStrings.centerLoggedIn).style.cssText = ''
+  loadItems(login)
+  insertFectchedListsInDropdown(login)
 }
 
 // Display error message for invalid login or password.

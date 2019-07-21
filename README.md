@@ -2,7 +2,7 @@
 
 Pet project for front-end position at Drawbotics.
 
-The app is composed of items and lists of items, which are stored in a Firebase database. Is uses Font Awesome, Google Fonts, Bootstrap, HTML, vanilla CSS and vanilla JS. A basic express server is used to serve the files on port 3000. I tried to use  as less dependancies as possible.
+The app is composed of items and lists of items, which are stored in a Firebase database. It uses Font Awesome, Google Fonts, Bootstrap, HTML, vanilla CSS and vanilla JS. A basic express server is used to serve the files on port 3000. I tried to use  as less dependancies as possible.
 
 To run the project just type node server in the terminal.
 

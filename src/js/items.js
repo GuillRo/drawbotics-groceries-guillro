@@ -20,7 +20,7 @@ const insertItemHTML = (itemName, list, selector, completed) => {
   document.querySelector(selector).insertAdjacentHTML('beforeend', html)
 }
 
-// Fetch the items of a specific list in the DB.
+// Fetch the items of a specific list in the DB and then insert them to the DOM.
 const fetchItemsOfAList = (user, list) => {
   list = encodeURI(list)
   const path = `/${user}/Groceries/${list}.json`
@@ -42,7 +42,7 @@ const fetchItemsOfAList = (user, list) => {
     })
 }
 
-// Fetch all items in the DB.
+// Fetch all items in the DB from a specific user.
 const fetchAll = (user) => {
   fetch(BackEndURL + `/${user}/Groceries.json`)
     .then(response => response.json())
@@ -66,7 +66,7 @@ const fetchAll = (user) => {
     })
 }
 
-// Empty the items and reload them.
+// Empty the items of a specific list and reload them.
 const loadItems = (user, list = 'All') => {
   document.querySelector(DOMStrings.completedItems).innerHTML = ''
   document.querySelector(DOMStrings.pendingItems).innerHTML = ''
@@ -80,27 +80,27 @@ const loadItems = (user, list = 'All') => {
 // Modify the state of an item (completed or uncompleted)
 // this method is also used to suppress an element, since Firebase does not accept
 // documents without a Value.
-const patchItem = (user, item, list, checked, deleteItem = false) => {
+const patchItem = (user, item, listToPatch, checked, deleteItem = false) => {
+  const displayedList = document.querySelector(DOMStrings.listSelection).innerText
   const value = checked ? 1 : 0
   let patchString = `{"${item}":${value}}`
   if (deleteItem) {
     patchString = `{"${item}": null}`
   }
-  fetch(BackEndURL + `/${user}/Groceries/${list}.json`, {
+  fetch(BackEndURL + `/${user}/Groceries/${listToPatch}.json`, {
     method: 'PATCH',
     body: patchString
   })
     .then(response => response.json())
     .then(data => {
-      loadItems(user, list)
+      loadItems(user, displayedList)
     })
 }
 
-
-// Add new item in the DB.
+// Add new item in the DB. Display an error if the item name is not valid.
 const addItemToList = (user, itemName, listName) => {
-  if (itemName.length < 2 || itemName.length > 16 || itemName.match(/([^\wéèàç ])/)) {
-    const reason = 'Item name must be between 2 and 16 characters long and composed of letters or numerals.'
+  if (itemName.length < 2 || itemName.length > 24 || itemName.match(/([^\wéèàç ])/)) {
+    const reason = 'Item name must be between 2 and 24 characters long and composed of letters or numerals.'
     const html = `<div class="alert alert-warning alert-dismissible fade show" role="alert">
     <strong>Invalid item name</strong> ${reason}
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">

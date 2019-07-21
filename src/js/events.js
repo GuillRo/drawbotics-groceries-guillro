@@ -1,9 +1,9 @@
-import { DOMStrings, BackEndURL } from './dataStrings.js'
+import { DOMStrings } from './dataStrings.js'
 import { loadItems, patchItem, addItemToList } from './items.js'
-import { insertFectchedListsInDropdown, addListToDB, redirectToList, deleteList } from './lists.js'
-import { validateCredentials, signOutUser } from './users.js'
+import { addListToDB, deleteList } from './lists.js'
+import { validateCredentials, signOutUser, validateNewUserLogin } from './users.js'
 
-// Handle the "completed" button's chevron (up or down) and display or remove the "completed" items.
+// Handle the "completed" button's chevron (up or down) and display or hide the "completed" items.
 const completedButtonHandler = () => {
   document.querySelector(DOMStrings.completedBtn).addEventListener('click', (event) => {
     const chevronUp = event.target.children[0]
@@ -24,7 +24,7 @@ const completedButtonHandler = () => {
   })
 }
 
-// Handle the dropdown menu displaying the differents lists.
+// Handle the dropdown menu displaying the user's differents lists.
 // Left-click on a list's name in the dropwdown menu will display it as the current list.
 // Right-click on a list's name will delete the whole list.
 const showDropdownSelectedList = (user) => {
@@ -54,7 +54,7 @@ const completeItemsOnLeftClick = (user) => {
   })
 }
 
-// Right-click on an item will delete it.
+// Right-click on an item will delete it from the database.
 const deleteItemsOnRightClick = (user) => {
   document.querySelectorAll(DOMStrings.item).forEach(item => {
     item.addEventListener('mouseup', (event) => {
@@ -62,14 +62,14 @@ const deleteItemsOnRightClick = (user) => {
       const name = decodeURI(item.children[1].name.split('-')[0])
       const list = decodeURI(item.children[1].name.split('-')[1])
       if (event.button === 2) {
-          event.preventDefault()
-          patchItem(user, name, list, checked, true)
+        event.preventDefault()
+        patchItem(user, name, list, checked, true)
       }
     })
   })
 }
 
-// Click on the "Save" button in the modal will save the new list to the DB.
+// Click on the "Save" button in the modal will save the user's new list to the DB.
 const addListOnClickEvent = (user) => {
   document.querySelector(DOMStrings.sendListBtn).addEventListener('click', (event) => {
     const listName = document.querySelector(DOMStrings.inputList).value
@@ -98,7 +98,7 @@ const addListOnEnterPressEvent = (user) => {
   })
 }
 
-// Add an item to the list by pressing Enter.
+// Add an item to the list by pressing Enter in the input.
 const addItemOnEnterPressEvent = (user) => {
   document.querySelector(DOMStrings.inputIngredient).addEventListener('keydown', (event) => {
     if (event.keyCode === 13) {
@@ -148,10 +148,42 @@ const logUserEvent = () => {
   })
 }
 
-// logout the user when he/she clicks the "logout" button.
+// Logout the user when he/she clicks the "logout" button.
 const logoutHandler = () => {
   document.querySelector(DOMStrings.logoutLink).addEventListener('click', () => {
     signOutUser()
+  })
+}
+
+// Send the new user's login and password to the validation after
+// reading it from their respective input zones.
+const newUserInput = () => {
+  const login = document.querySelector(DOMStrings.inputNewLogin)
+  const password = document.querySelector(DOMStrings.inputNewPassword)
+
+  login.addEventListener('keyup', (event) => {
+    if (event.keyCode === 13) {
+      document.querySelector(DOMStrings.modalNewUser).click()
+      validateNewUserLogin(login.value, password.value)
+      login.value = ''
+      password.value = ''
+    }
+  })
+
+  password.addEventListener('keyup', (event) => {
+    if (event.keyCode === 13) {
+      document.querySelector(DOMStrings.modalNewUser).click()
+      validateNewUserLogin(login.value, password.value)
+      login.value = ''
+      password.value = ''
+    }
+  })
+
+  document.querySelector(DOMStrings.newUserBtn).addEventListener('click', (event) => {
+    document.querySelector(DOMStrings.modalNewUser).click()
+    validateNewUserLogin(login.value, password.value)
+    login.value = ''
+    password.value = ''
   })
 }
 
@@ -164,5 +196,6 @@ export {
   addItemOnEnterPressEvent,
   addListOnEnterPressEvent,
   logUserEvent,
-  logoutHandler
+  logoutHandler,
+  newUserInput
 }

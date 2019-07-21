@@ -1,15 +1,14 @@
 import { DOMStrings, BackEndURL } from './dataStrings.js'
 import { loadItems } from './items.js';
 
-// Fetch lists name in DB.
+// Fetch a user's lists names in DB.
 const fetchListsNames = async (user) => {
   let response = await fetch(BackEndURL + `/${user}/Groceries.json`)
-  // console.log(response)
   let data = await response.json()
   return Object.keys(data)
 }
 
-// Insert the different lists' names in the dropdown menu.
+// Insert the user's different lists'name in the dropdown menu after fetching them.
 const insertFectchedListsInDropdown = (user) => {
   const selector = DOMStrings.dropDownlists
   document.querySelector(selector).innerHTML = ''
@@ -42,7 +41,7 @@ const validateListName = async (user, listName) => {
   return true
 }
 
-// Redirect to a specific list.
+// Redirect to a specific list of a specific user.
 const redirectToList = (user, listName) => {
   document.querySelector(DOMStrings.listSelection).innerText = listName
   loadItems(user, listName)
@@ -74,6 +73,7 @@ const addListToDB = (user, listName) => {
   })
 }
 
+// Delete a specific list from a specific user.
 const deleteList = (user, list) => {
   fetch(BackEndURL + `/${user}/Groceries.json`, {
     method: 'PATCH',

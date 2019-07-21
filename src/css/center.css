@@ -1,0 +1,39 @@
+.center {
+  height: 500px;
+  padding: 0 50px;
+  overflow: auto;
+}
+
+.center .lists {
+  display: flex;
+  color: var(--main-txt-color);
+  align-items: center;
+  justify-content: space-around;
+  padding: 40px;
+  font-size: 22px;
+}
+
+.column {
+  margin: 50px 0 0 0;
+  padding: 0;
+  height: 80vh;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+}
+
+@media (max-width: 767px) {
+  .column {
+    margin: 0;
+    height: 100vh;
+  }
+}
+
+.center-login {
+text-align: center;
+margin: 100px 0;
+}
+
+.center-login input{
+  margin: 8px 0;
+}

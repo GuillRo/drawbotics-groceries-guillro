@@ -16,7 +16,11 @@ const DOMStrings = {
   signUpBtn: '#btn-signup',
   centerLoggedIn: '.center',
   centerLoggedOut: '.center-login',
-  logoutLink: '#logout-link'
+  logoutLink: '#logout-link',
+  inputNewLogin: '#new-user-login',
+  inputNewPassword: '#new-user-password',
+  newUserBtn: '#send-user',
+  modalNewUser: '#modal-new-user'
 }
 // Endpoint of the Firebase API.
 const BackEndURL = 'https://drawbotics-petpro-guillro.firebaseio.com/Users'

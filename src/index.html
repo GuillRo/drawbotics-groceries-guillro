@@ -28,17 +28,18 @@
         </header>
 
         <div class="center-login">
-          <label for="login-input">
-            Login:
-            <input id="login-input" type="text" />
-          </label>
-          <label for="password-input">
-            Password:
-            <input id="password-input" type="text" />
-          </label>
           <div>
-            <button id="btn-signin">Sign in</button>
-            <button id="btn-signup">Sign up</button>
+            <input id="login-input" type="text" placeholder="Login"/>
+          </div>
+          <div>
+            <input id="password-input" type="text" placeholder="Password"/>
+          </div>
+          <div>
+            <button class="btn-transparent" id="btn-signin">Sign in</button>
+            <!-- <button id="btn-signup">Sign up</button> -->
+            <button class="btn-transparent" type="button" id="sign-up" data-toggle="modal"
+              data-target="#modal-new-user">Sign up</button>
+
           </div>
         </div>
 
@@ -119,6 +120,26 @@
         </div>
       </div>
     </div>
+
+    <div class="modal fade" id="modal-new-user" tabindex="-1" role="dialog" aria-labelledby="modal-new-user-label"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-body">
+            <form id="add-list" submit="test()">
+              <input type="text" id="new-user-login" value="" name="new-user-login" placeholder="Enter your login">
+              <input type="text" id="new-user-password" value="" name="new-user-password"
+                placeholder="Enter your password">
+            </form>
+          </div>
+          <div class="modal-footer" style="border: none;">
+            <button type="button" class="btn" data-dismiss="modal">Close</button>
+            <button id="send-user" type="button" class="btn btn-split">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
 
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"

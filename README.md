@@ -24,6 +24,10 @@ There is also a user authentication system. When launching the app the user will
 
 For every input (list, item, login,...) the app will forbid certain characters to avoid nasty injections. The app doesn't accept password shorter than 6 characters and login shorter than 2 characters. Item names should have a length between 2 and 24 characters, and list names should be between 2 and 16 characters.
 
+There are two users in the database right now: "John" (password: abc123) and "Marie" (password: xyz789).
+
+When creating a new user or a new list, the app will create some dummy data which are not displayed. The reason for this is that Firebase does not accept empty collections, there always needs to be some document in the collection, even at the initialization.
+
 # Structure
 
 The app.js is the "main" file and triggers the initial necessary events.

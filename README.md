@@ -47,3 +47,5 @@ Right now the CSS lacks in modularity. This is something I should have done in t
 Generally speaking the code is not DRY enough and could be improved in that regard.
 
 The multi-user feature is still basic: reloading the page will loading the login page (the app doesn't remember the logged in user). Also since it is a front-end project there is no real security about users' credentials. 
+
+Due to lack of time, the footer is completely useless right now.

@@ -23,11 +23,27 @@
             <p class="title-big">GROCERIES APP</p>
           </div>
           <div class="header-right">
-            <a id="login-link" class="title-big link-nostyle" href="#">Login</a>
+            <a id="logout-link" class="title-big link-nostyle" href="#" style="display: none;">Logout</a>
           </div>
         </header>
 
-        <div class="center">
+        <div class="center-login">
+          <div>
+            <input id="login-input" type="text" placeholder="Login"/>
+          </div>
+          <div>
+            <input id="password-input" type="text" placeholder="Password"/>
+          </div>
+          <div>
+            <button class="btn-transparent" id="btn-signin">Sign in</button>
+            <!-- <button id="btn-signup">Sign up</button> -->
+            <button class="btn-transparent" type="button" id="sign-up" data-toggle="modal"
+              data-target="#modal-new-user">Sign up</button>
+
+          </div>
+        </div>
+
+        <div class="center" style="display: none;">
           <div class="lists">
             <div class="btn-group" style="width: 200px;" oncontextmenu="return false;">
               <button id="dropdown-lists-selection" class="btn btn-select" type="button">
@@ -104,6 +120,26 @@
         </div>
       </div>
     </div>
+
+    <div class="modal fade" id="modal-new-user" tabindex="-1" role="dialog" aria-labelledby="modal-new-user-label"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-body">
+            <form id="add-list" submit="test()">
+              <input type="text" id="new-user-login" value="" name="new-user-login" placeholder="Enter your login">
+              <input type="text" id="new-user-password" value="" name="new-user-password"
+                placeholder="Enter your password">
+            </form>
+          </div>
+          <div class="modal-footer" style="border: none;">
+            <button type="button" class="btn" data-dismiss="modal">Close</button>
+            <button id="send-user" type="button" class="btn btn-split">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
 
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"

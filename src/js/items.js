@@ -2,7 +2,7 @@ import { DOMStrings, BackEndURL } from './dataStrings.js'
 import { completeItemsOnLeftClick, deleteItemsOnRightClick, } from './events.js'
 import { insertFectchedListsInDropdown, redirectToList } from './lists.js';
 
-// Insert items to the DOM, in the completed or uncompleted zone according to
+// Insert items in the DOM, in the completed or uncompleted zone according to
 // their state in the DB.
 const insertItemHTML = (itemName, list, selector, completed) => {
   let html = ''
@@ -20,10 +20,10 @@ const insertItemHTML = (itemName, list, selector, completed) => {
   document.querySelector(selector).insertAdjacentHTML('beforeend', html)
 }
 
-// Fetch the items of a specific list in the DB.
-const fetchItemsOfAList = (list) => {
+// Fetch the items of a specific list in the DB and then insert them to the DOM.
+const fetchItemsOfAList = (user, list) => {
   list = encodeURI(list)
-  const path = `/${list}.json`
+  const path = `/${user}/Groceries/${list}.json`
   fetch(BackEndURL + path)
     .then(response => response.json())
     .then(data => {
@@ -37,14 +37,14 @@ const fetchItemsOfAList = (list) => {
           }
         }
       })
-      completeItemsOnLeftClick()
-      deleteItemsOnRightClick()
+      completeItemsOnLeftClick(user)
+      deleteItemsOnRightClick(user)
     })
 }
 
-// Fetch all items in the DB.
-const fetchAll = () => {
-  fetch(BackEndURL + '.json')
+// Fetch all items in the DB from a specific user.
+const fetchAll = (user) => {
+  fetch(BackEndURL + `/${user}/Groceries.json`)
     .then(response => response.json())
     .then(data => {
       const numberOfLists = Object.keys(data).length
@@ -61,49 +61,46 @@ const fetchAll = () => {
           }
         })
       }
-      completeItemsOnLeftClick()
-      deleteItemsOnRightClick()
+      completeItemsOnLeftClick(user)
+      deleteItemsOnRightClick(user)
     })
 }
 
-// Empty the items and reload them.
-const loadItems = (list = 'All') => {
+// Empty the items of a specific list and reload them.
+const loadItems = (user, list = 'All') => {
   document.querySelector(DOMStrings.completedItems).innerHTML = ''
   document.querySelector(DOMStrings.pendingItems).innerHTML = ''
   if (list === 'All') {
-    fetchAll()
+    fetchAll(user)
   } else {
-    fetchItemsOfAList(list)
+    fetchItemsOfAList(user, list)
   }
 }
 
 // Modify the state of an item (completed or uncompleted)
 // this method is also used to suppress an element, since Firebase does not accept
 // documents without a Value.
-const patchItem = (ingName, ingList, checked, deleteIng = false) => {
-  const listName = document.querySelector(DOMStrings.listSelection).innerText
+const patchItem = (user, item, listToPatch, checked, deleteItem = false) => {
+  const displayedList = document.querySelector(DOMStrings.listSelection).innerText
   const value = checked ? 1 : 0
-  let patchString = `{"${ingName}":${value}}`
-  if (deleteIng) {
-    patchString = `{"${ingName}": null}`
-  } else {
-    patchString = `{"${ingName}":${value}}`
+  let patchString = `{"${item}":${value}}`
+  if (deleteItem) {
+    patchString = `{"${item}": null}`
   }
-  fetch(BackEndURL + `/${ingList}.json`, {
+  fetch(BackEndURL + `/${user}/Groceries/${listToPatch}.json`, {
     method: 'PATCH',
     body: patchString
   })
     .then(response => response.json())
     .then(data => {
-      loadItems(listName)
+      loadItems(user, displayedList)
     })
 }
 
-
-// Add new item in the DB.
-const addItemToList = (itemName, listName) => {
-  if (itemName.length < 2 || itemName.length > 16 || itemName.match(/([^\wéèàç])/)) {
-    const reason = 'Item name must be between 2 and 16 characters long and composed of letters or numerals.'
+// Add new item in the DB. Display an error if the item name is not valid.
+const addItemToList = (user, itemName, listName) => {
+  if (itemName.length < 2 || itemName.length > 24 || itemName.match(/([^\wéèàç ])/)) {
+    const reason = 'Item name must be between 2 and 24 characters long and composed of letters or numerals.'
     const html = `<div class="alert alert-warning alert-dismissible fade show" role="alert">
     <strong>Invalid item name</strong> ${reason}
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -113,14 +110,14 @@ const addItemToList = (itemName, listName) => {
   document.querySelector('#body').insertAdjacentHTML('afterbegin', html)
   } else {
     const list = listName === 'All' ? 'Unsorted' : listName
-    fetch(BackEndURL + `/${list}.json`, {
+    fetch(BackEndURL + `/${user}/Groceries/${list}.json`, {
       method: 'PATCH',
       body: `{"${itemName}":0}`
     })
       .then(response => response.json())
       .then(data => {
-        insertFectchedListsInDropdown()
-        redirectToList(list)
+        insertFectchedListsInDropdown(user)
+        redirectToList(user, list)
       })
   }
 }

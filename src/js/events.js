@@ -1,8 +1,9 @@
-import { DOMStrings, BackEndURL } from './dataStrings.js'
+import { DOMStrings } from './dataStrings.js'
 import { loadItems, patchItem, addItemToList } from './items.js'
-import { insertFectchedListsInDropdown, addListToDB, redirectToList } from './lists.js'
+import { addListToDB, deleteList } from './lists.js'
+import { validateCredentials, signOutUser, validateNewUserLogin } from './users.js'
 
-// Handle the "completed" button's chevron (up or down) and display or remove the "completed" items.
+// Handle the "completed" button's chevron (up or down) and display or hide the "completed" items.
 const completedButtonHandler = () => {
   document.querySelector(DOMStrings.completedBtn).addEventListener('click', (event) => {
     const chevronUp = event.target.children[0]
@@ -23,81 +24,63 @@ const completedButtonHandler = () => {
   })
 }
 
-// Handle the dropdown menu displaying the differents lists.
+// Handle the dropdown menu displaying the user's differents lists.
 // Left-click on a list's name in the dropwdown menu will display it as the current list.
 // Right-click on a list's name will delete the whole list.
-const showDropdownSelectedList = () => {
+const showDropdownSelectedList = (user) => {
   document.querySelector(DOMStrings.dropDownlists).addEventListener('click', (event) => {
     const selectedList = event.target.textContent
     document.querySelector(DOMStrings.listSelection).innerText = selectedList
-    loadItems(selectedList)
+    loadItems(user, selectedList)
   })
   document.querySelector(DOMStrings.dropDownlists).addEventListener('mouseup', (event) => {
     const selectedList = event.target.textContent
-    switch (event.button) {
-      case 0:
-        break
-      case 1:
-        break
-      default:
-        event.preventDefault()
-        fetch(BackEndURL + `.json`, {
-          method: 'PATCH',
-          body: `{"${selectedList}": null}`
-        })
-          .then(response => response.json())
-          .then(data => {
-            insertFectchedListsInDropdown()
-            redirectToList('All')
-          })
+    if (event.button === 2) {
+      event.preventDefault()
+      deleteList(user, selectedList)
     }
   })
 }
 
 // Left-click on an item will move it to the "completed" zone if it was uncompleted, and vice-versa.
-const completeItemsOnLeftClick = () => {
+const completeItemsOnLeftClick = (user) => {
   document.querySelectorAll(DOMStrings.item).forEach(item => {
     item.addEventListener('change', (event) => {
       const checked = event.target.checked
       const name = decodeURI(item.children[1].name.split('-')[0])
       const list = decodeURI(item.children[1].name.split('-')[1])
-      patchItem(name, list, checked)
+      patchItem(user, name, list, checked)
     })
   })
 }
 
-// Right-click on an item will delete it.
-const deleteItemsOnRightClick = () => {
+// Right-click on an item will delete it from the database.
+const deleteItemsOnRightClick = (user) => {
   document.querySelectorAll(DOMStrings.item).forEach(item => {
     item.addEventListener('mouseup', (event) => {
       const checked = event.target.checked
       const name = decodeURI(item.children[1].name.split('-')[0])
       const list = decodeURI(item.children[1].name.split('-')[1])
-      switch (event.button) {
-        case 0:
-          break
-        case 1:
-          break
-        default:
-          event.preventDefault()
-          patchItem(name, list, checked, true)
+      if (event.button === 2) {
+        event.preventDefault()
+        patchItem(user, name, list, checked, true)
       }
     })
   })
 }
 
-// Click on the "Save" button in the modal will save the new list to the DB.
-const addListOnClickEvent = () => {
+// Click on the "Save" button in the modal will save the user's new list to the DB.
+const addListOnClickEvent = (user) => {
   document.querySelector(DOMStrings.sendListBtn).addEventListener('click', (event) => {
     const listName = document.querySelector(DOMStrings.inputList).value
-    addListToDB(listName)
+    addListToDB(user, listName)
     document.querySelector(DOMStrings.inputList).value = ''
     document.querySelector(DOMStrings.modalLists).click()
   })
 }
 
 // Clicking on "Enter" in the modal input will add the new list to the DB.
-const addListOnEnterPressEvent = () => {
+const addListOnEnterPressEvent = (user) => {
   document.querySelector(DOMStrings.inputList).addEventListener('keydown', (event) => {
     if (event.keyCode === 13) {
       event.preventDefault()
@@ -108,15 +91,15 @@ const addListOnEnterPressEvent = () => {
     if (event.keyCode === 13) {
       event.preventDefault()
       const listName = document.querySelector(DOMStrings.inputList).value
-      addListToDB(listName)
+      addListToDB(user, listName)
       document.querySelector(DOMStrings.inputList).value = ''
       document.querySelector(DOMStrings.modalLists).click()
     }
   })
 }
 
-// Add an item to the list by pressing Enter.
-const addItemOnEnterPressEvent = () => {
+// Add an item to the list by pressing Enter in the input.
+const addItemOnEnterPressEvent = (user) => {
   document.querySelector(DOMStrings.inputIngredient).addEventListener('keydown', (event) => {
     if (event.keyCode === 13) {
       event.preventDefault()
@@ -128,8 +111,79 @@ const addItemOnEnterPressEvent = () => {
       const newItem = document.querySelector(DOMStrings.inputIngredient).value
       const list = document.querySelector(DOMStrings.listSelection).innerText
       document.querySelector(DOMStrings.inputIngredient).value = ''
-      addItemToList(newItem, list)
+      addItemToList(user, newItem, list)
     }
+  })
+}
+
+// Get login and password in their input fields and send them for validation.
+const logUserEvent = () => {
+  let login = document.querySelector(DOMStrings.inputLogin)
+  let password = document.querySelector(DOMStrings.inputPassword)
+
+  const getCredentials = () => {
+    return JSON.parse(`{"login": "${login.value}", "password":"${password.value}"}`)
+  }
+
+  login.addEventListener('keyup', (event) => {
+    if (event.keyCode === 13) {
+      validateCredentials(getCredentials())
+      login.value = ''
+      password.value = ''
+    }
+  })
+
+  password.addEventListener('keyup', (event) => {
+    if (event.keyCode === 13) {
+      validateCredentials(getCredentials())
+      login.value = ''
+      password.value = ''
+    }
+  })
+
+  document.querySelector(DOMStrings.signInBtn).addEventListener('click', (event) => {
+    validateCredentials(getCredentials())
+    login.value = ''
+    password.value = ''
+  })
+}
+
+// Logout the user when he/she clicks the "logout" button.
+const logoutHandler = () => {
+  document.querySelector(DOMStrings.logoutLink).addEventListener('click', () => {
+    signOutUser()
+  })
+}
+
+// Send the new user's login and password to the validation after
+// reading it from their respective input zones.
+const newUserInput = () => {
+  const login = document.querySelector(DOMStrings.inputNewLogin)
+  const password = document.querySelector(DOMStrings.inputNewPassword)
+
+  login.addEventListener('keyup', (event) => {
+    if (event.keyCode === 13) {
+      document.querySelector(DOMStrings.modalNewUser).click()
+      validateNewUserLogin(login.value, password.value)
+      login.value = ''
+      password.value = ''
+    }
+  })
+
+  password.addEventListener('keyup', (event) => {
+    if (event.keyCode === 13) {
+      document.querySelector(DOMStrings.modalNewUser).click()
+      validateNewUserLogin(login.value, password.value)
+      login.value = ''
+      password.value = ''
+    }
+  })
+
+  document.querySelector(DOMStrings.newUserBtn).addEventListener('click', (event) => {
+    document.querySelector(DOMStrings.modalNewUser).click()
+    validateNewUserLogin(login.value, password.value)
+    login.value = ''
+    password.value = ''
   })
 }
 
@@ -140,5 +194,8 @@ export {
   deleteItemsOnRightClick,
   addListOnClickEvent,
   addItemOnEnterPressEvent,
-  addListOnEnterPressEvent
+  addListOnEnterPressEvent,
+  logUserEvent,
+  logoutHandler,
+  newUserInput
 }

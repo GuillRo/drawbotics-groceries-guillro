@@ -1,0 +1,28 @@
+.items {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.add-item input {
+  text-align: center;
+  border: 1px dashed var(--main-txt-color);
+  width: 100%;
+}
+
+.item {
+  border: 1px solid var(--main-txt-color);
+  margin: 5px 0;
+  color: var(--main-txt-color0);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.items-container .item p {
+  margin: 0;
+  padding: 5px;
+}
+
+.items-container .item input {
+  margin: 5px;
+}

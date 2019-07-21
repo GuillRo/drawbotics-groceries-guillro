@@ -1,0 +1,21 @@
+.modal input {
+margin: 5px 0;
+}
+
+.modal-body {
+  text-align: center;
+}
+
+.modal-body input {
+  width: 100%;
+  text-align: center;
+}
+
+.modal-dialog {
+  max-width: 300px;
+}
+
+.modal-content {
+  border-radius: 0;
+}
+
